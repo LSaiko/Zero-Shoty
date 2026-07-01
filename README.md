@@ -1,8 +1,8 @@
-# Zero-shotty
+# Zero-Shoty
 
 Zero-shot text classification with a Claude-powered label advisor for ambiguous predictions.
 
-![CI](https://github.com/LSaiko/Zero-shotty/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/LSaiko/Zero-Shoty/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 [![🤗 HF Spaces](https://img.shields.io/badge/%F0%9F%A4%97-HF%20Spaces-yellow)](#)
@@ -97,7 +97,7 @@ Then open the local URL Gradio prints (typically `http://127.0.0.1:7860`).
 
 ## Project Structure
 ```
-Zero-shotty/
+Zero-Shoty/
 ├── CLAUDE.md
 ├── README.md
 ├── app.py

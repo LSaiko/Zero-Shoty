@@ -22,4 +22,4 @@ between the top labels), the app can consult Claude as a label-engineering
 advisor: Claude never classifies the text itself, but reviews the ambiguous
 result and the label set to suggest clearer labels or explain why the text
 is a hard case. Set `ANTHROPIC_API_KEY` as a Space Secret to enable Claude
-Label Advisor. Source and documentation: https://github.com/LSaiko/Zero-shotty
+Label Advisor. Source and documentation: https://github.com/LSaiko/Zero-Shoty

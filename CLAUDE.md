@@ -1,7 +1,7 @@
-# CLAUDE.md — Zero-shotty
+# CLAUDE.md — Zero-Shoty
 
 ## 1. Project Identity
-- **Repo:** LSaiko/Zero-shotty
+- **Repo:** LSaiko/Zero-Shoty
 - **Stack:** `facebook/bart-large-mnli` · Gradio · Anthropic Claude API
 - **Python:** 3.11+ · Windows (PowerShell) · venv at `.venv\`
 
