@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 LOW_SCORE_THRESHOLD = 0.55
 SCORE_GAP_THRESHOLD = 0.12
+ACTIVE_LABEL_THRESHOLD = 0.40
 
 
 class ZeroShotClassifier:
@@ -40,7 +41,8 @@ class ZeroShotClassifier:
 
         Returns:
             A dict with keys "labels", "scores", "top_label", "top_score",
-            "is_ambiguous", and "ambiguity_reason".
+            "is_ambiguous", "ambiguity_reason", and (multi-label only)
+            "active_labels".
         """
         result = self.pipeline(text, labels, multi_label=multi_label)
         scores = result["scores"]
@@ -62,7 +64,7 @@ class ZeroShotClassifier:
                 f"({scores[0]:.2f} vs {scores[1]:.2f})"
             )
 
-        return {
+        output = {
             "labels": result_labels,
             "scores": scores,
             "top_label": top_label,
@@ -70,6 +72,15 @@ class ZeroShotClassifier:
             "is_ambiguous": is_ambiguous,
             "ambiguity_reason": ambiguity_reason,
         }
+
+        if multi_label:
+            output["active_labels"] = [
+                label
+                for label, score in zip(result_labels, scores)
+                if score >= ACTIVE_LABEL_THRESHOLD
+            ]
+
+        return output
 
     def warmup(self) -> None:
         """Run a dummy classification to force model weights to load.

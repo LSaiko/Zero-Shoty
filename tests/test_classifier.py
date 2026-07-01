@@ -78,3 +78,45 @@ def test_not_ambiguous(mock_classifier) -> None:
     result = classifier.classify("some text", ["a", "b"])
 
     assert result["is_ambiguous"] is False
+
+
+def test_single_label_has_no_active_labels(mock_classifier) -> None:
+    """Single-label mode should not include an 'active_labels' key."""
+    classifier, mock_pipeline_instance = mock_classifier
+    mock_pipeline_instance.return_value = {
+        "labels": ["a", "b"],
+        "scores": [0.9, 0.1],
+    }
+
+    result = classifier.classify("some text", ["a", "b"])
+
+    assert "active_labels" not in result
+
+
+def test_multi_label_active_labels(mock_classifier) -> None:
+    """Multi-label mode returns every label scoring at or above 0.40."""
+    classifier, mock_pipeline_instance = mock_classifier
+    mock_pipeline_instance.return_value = {
+        "labels": ["a", "b", "c", "d"],
+        "scores": [0.95, 0.62, 0.40, 0.12],
+    }
+
+    result = classifier.classify("some text", ["a", "b", "c", "d"], multi_label=True)
+
+    assert result["active_labels"] == ["a", "b", "c"]
+    mock_pipeline_instance.assert_called_once_with(
+        "some text", ["a", "b", "c", "d"], multi_label=True
+    )
+
+
+def test_multi_label_no_active_labels(mock_classifier) -> None:
+    """Multi-label mode yields an empty list when nothing clears the threshold."""
+    classifier, mock_pipeline_instance = mock_classifier
+    mock_pipeline_instance.return_value = {
+        "labels": ["a", "b"],
+        "scores": [0.30, 0.10],
+    }
+
+    result = classifier.classify("some text", ["a", "b"], multi_label=True)
+
+    assert result["active_labels"] == []

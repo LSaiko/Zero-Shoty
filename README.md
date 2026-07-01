@@ -95,6 +95,8 @@ python app.py
 ```
 Then open the local URL Gradio prints (typically `http://127.0.0.1:7860`).
 
+Examples sourced from Kaggle News Category Dataset.
+
 ## Project Structure
 ```
 Zero-Shoty/
