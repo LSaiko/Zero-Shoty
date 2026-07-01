@@ -47,3 +47,10 @@ def test_normalize_deduplicates() -> None:
     engineer = LabelEngineer()
     result = engineer.normalize(["good", "Good", "GOOD", "bad"])
     assert result == ["Good", "Bad"]
+
+
+def test_normalize_capitalizes_first_letter_only() -> None:
+    """normalize() uppercases only the first letter, leaving the rest unchanged."""
+    engineer = LabelEngineer()
+    result = engineer.normalize(["tech news", "uS politics"])
+    assert result == ["Tech news", "US politics"]
